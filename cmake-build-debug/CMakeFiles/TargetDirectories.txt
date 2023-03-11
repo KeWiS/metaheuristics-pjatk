@@ -1,0 +1,3 @@
+Z:/s22446/MHE/Project/metaheuristics-pjatk/cmake-build-debug/CMakeFiles/metaheuristics_pjatk.dir
+Z:/s22446/MHE/Project/metaheuristics-pjatk/cmake-build-debug/CMakeFiles/edit_cache.dir
+Z:/s22446/MHE/Project/metaheuristics-pjatk/cmake-build-debug/CMakeFiles/rebuild_cache.dir

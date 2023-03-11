@@ -1,0 +1,9 @@
+# ninja log v5
+9	486	7002637935321094	build.ninja	d1e747b53168921
+3	305	7002637614274224	CMakeFiles/metaheuristics_pjatk.dir/src/main.cpp.obj	ca62d270f92b22fd
+352	939	7002637618611783	metaheuristics_pjatk.exe	2df393a21d7477d3
+234	1504	7002646183752980	CMakeFiles/metaheuristics_pjatk.dir/src/main.cpp.obj	ca62d270f92b22fd
+70	507	7002646379250173	CMakeFiles/metaheuristics_pjatk.dir/src/knapsack.cpp.obj	65c9f8d55d51d3a6
+520	633	7002646380745272	metaheuristics_pjatk.exe	983ef0749d52482d
+8	309	7002646607446792	CMakeFiles/metaheuristics_pjatk.dir/src/main.cpp.obj	ca62d270f92b22fd
+312	416	7002646608548897	metaheuristics_pjatk.exe	983ef0749d52482d
