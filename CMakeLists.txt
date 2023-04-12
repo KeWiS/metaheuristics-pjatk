@@ -3,4 +3,4 @@ project(metaheuristics_pjatk)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(metaheuristics_pjatk src/main.cpp src/knapsack.h src/knapsack.cpp)
+add_executable(metaheuristics_pjatk src/main.cpp src/knapsack.h src/knapsack.cpp src/randomizer.h src/randomizer.cpp src/problem.h src/problem.cpp src/box.h src/box.cpp)
