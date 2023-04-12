@@ -1,7 +1,7 @@
-#include <iostream>
-#include "knapsack.h"
+#include "problem.h"
 
 int main() {
-    Knapsack knapsack;
+    Problem problem;
+
     return 0;
 }
