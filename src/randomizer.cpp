@@ -1,6 +1,4 @@
-#include<iostream>
-#include <random>
-
+#include <iostream>
 #include "randomizer.h"
 
 Randomizer::Randomizer() {

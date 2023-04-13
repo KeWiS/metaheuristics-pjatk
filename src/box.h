@@ -4,10 +4,16 @@
 class Box {
 private:
     int weight;
+    int price;
 
 public:
     Box();
-    Box(int weight);
+    Box(int weight, int price);
+    // Copy constructor
+    Box(const Box &box);
+
+    int getWeight();
+    int getPrice();
 };
 
 #endif //METAHEURISTICS_PJATK_BOX_H
