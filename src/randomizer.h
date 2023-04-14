@@ -1,5 +1,6 @@
 #ifndef METAHEURISTICS_PJATK_RANDOMIZER_H
 #define METAHEURISTICS_PJATK_RANDOMIZER_H
+
 #include <random>
 
 class Randomizer {
@@ -8,6 +9,7 @@ private:
 
 public:
     Randomizer();
+
     int generateIntegerNumberFromRange(int beginNumber, int endNumber);
 };
 

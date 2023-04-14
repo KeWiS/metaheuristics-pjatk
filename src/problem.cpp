@@ -45,8 +45,11 @@ std::vector<Box> Problem::generateRandomBoxesCollection(int maxWeight) {
     std::vector<Box> boxesCollection = std::vector<Box>();
     int currentBoxesWeight = 0;
 
-    for(std::vector<Box>::size_type i = 0; i != possibleBoxRange.size(); i++) {
-        std::cout << "Box " << i << " weight: " << possibleBoxRange[i].getWeight() << "kg" << std::endl;
+    // Printing generated boxes range
+    std::cout << "Generated boxes range:" << std::endl;
+    for (std::vector<Box>::size_type i = 0; i != possibleBoxRange.size(); i++) {
+        std::cout << "\tBox " << i << " weight: " << possibleBoxRange[i].getWeight() << "kg" <<
+                  " | price: " << possibleBoxRange[i].getPrice() << "$" << std::endl;
     }
 
     while (maxWeight >= currentBoxesWeight + possibleBoxRange[0].getWeight()) {
@@ -57,8 +60,7 @@ std::vector<Box> Problem::generateRandomBoxesCollection(int maxWeight) {
             currentBoxesWeight += possibleBoxRange[boxIndex].getWeight();
 
             continue;
-        }
-        else if (maxWeight >= currentBoxesWeight + possibleBoxRange[0].getWeight()) {
+        } else if (maxWeight >= currentBoxesWeight + possibleBoxRange[0].getWeight()) {
             boxesCollection.push_back(possibleBoxRange[0]);
             currentBoxesWeight += possibleBoxRange[0].getWeight();
 

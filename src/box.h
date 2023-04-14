@@ -8,11 +8,14 @@ private:
 
 public:
     Box();
+
     Box(int weight, int price);
+
     // Copy constructor
     Box(const Box &box);
 
     int getWeight();
+
     int getPrice();
 };
 
