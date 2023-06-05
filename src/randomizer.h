@@ -4,13 +4,13 @@
 #include <random>
 
 class Randomizer {
-private:
-    std::mt19937 generator;
-
 public:
     Randomizer();
 
     int generateIntegerNumberFromRange(int beginNumber, int endNumber);
+
+private:
+    std::mt19937 generator;
 };
 
 #endif //METAHEURISTICS_PJATK_RANDOMIZER_H

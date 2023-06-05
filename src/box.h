@@ -2,10 +2,6 @@
 #define METAHEURISTICS_PJATK_BOX_H
 
 class Box {
-private:
-    int weight;
-    int price;
-
 public:
     Box();
 
@@ -17,6 +13,10 @@ public:
     int getWeight();
 
     int getPrice();
+
+private:
+    int weight;
+    int price;
 };
 
 #endif //METAHEURISTICS_PJATK_BOX_H

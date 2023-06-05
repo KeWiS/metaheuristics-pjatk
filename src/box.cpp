@@ -14,9 +14,9 @@ Box::Box(const Box &box) {
 }
 
 int Box::getWeight() {
-    return this->weight;
+    return weight;
 }
 
 int Box::getPrice() {
-    return this->price;
+    return price;
 }

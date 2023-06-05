@@ -6,12 +6,6 @@
 #include "knapsack.h"
 
 class Problem {
-private:
-    Randomizer randomizer;
-    Knapsack knapsack;
-
-    std::vector<Box> possibleBoxRange;
-
 public:
     Problem();
 
@@ -20,6 +14,18 @@ public:
     Knapsack generateKnapsack();
 
     std::vector<Box> generateRandomBoxesCollection(int maxWeight);
+
+    std::vector<Knapsack> generateNeighbors();
+
+    Knapsack *getKnapsack();
+
+    Randomizer *getRandomizer();
+
+private:
+    Randomizer randomizer;
+    Knapsack knapsack;
+
+    std::vector<Box> possibleBoxRange;
 };
 
 #endif //METAHEURISTICS_PJATK_PROBLEM_H

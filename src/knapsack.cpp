@@ -6,10 +6,57 @@ Knapsack::Knapsack() {}
 Knapsack::Knapsack(int capacity, std::vector<Box> boxes) {
     this->capacity = capacity;
     this->boxes = boxes;
+
+    for (std::vector<Box>::size_type i = 0; i != boxes.size(); i++) {
+        summedWeight += boxes[i].getWeight();
+        summedPrice += boxes[i].getPrice();
+    }
+}
+
+// Copy constructor
+Knapsack::Knapsack(const Knapsack &knapsack) {
+    this->capacity = knapsack.capacity;
+    this->boxes = knapsack.boxes;
+    this->summedPrice = knapsack.summedPrice;
+    this->summedWeight = knapsack.summedWeight;
+}
+
+void Knapsack::swapBoxAtIndex(int index, Box box) {
+    boxes.at(index) = box;
+}
+
+void Knapsack::addBox(Box &box) {
+    boxes.push_back(box);
+}
+
+void Knapsack::recalculateSummedValues() {
+    summedWeight = 0;
+    summedPrice = 0;
+
+    for (std::vector<Box>::size_type i = 0; i != boxes.size(); i++) {
+        summedWeight += boxes[i].getWeight();
+        summedPrice += boxes[i].getPrice();
+    }
+}
+
+int Knapsack::getCapacity() {
+    return capacity;
+}
+
+int Knapsack::getSummedPrice() {
+    return summedPrice;
+}
+
+int Knapsack::getSummedWeight() {
+    return summedWeight;
+}
+
+std::vector<Box> Knapsack::getBoxes() {
+    return boxes;
 }
 
 void Knapsack::printKnapsack() {
-    std::cout << std::endl << "Current knapsack data:" << std::endl;
+    std::cout << "Current knapsack data:" << std::endl;
     // Knapsack capacity
     std::cout << "\tKnapsack capacity: " << capacity << "kg" << std::endl;
     // Variables for sum of weight and price
