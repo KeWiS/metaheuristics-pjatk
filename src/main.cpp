@@ -1,7 +1,7 @@
 #include "problem.h"
 
 int main() {
-    Problem problem;
+    Problem problem(true);
 
     return 0;
 }

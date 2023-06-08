@@ -1,55 +1,55 @@
 #include "hill_climb.h"
-#include <algorithm>
 #include <iostream>
 
-Knapsack *HillClimb::generateRandomSolution(Problem &problem) {
+Knapsack *HillClimb::generateRandomSolution(Problem problem) {
     auto bestKnapsack = problem.getKnapsack();
 
-    for (int i = 0; i < 100000; i++) {
-        auto newKnapsack = getRandomNeighbor(problem);
+    for (int i = 0; i < 10000; i++) {
+        auto neighbors = problem.generateNeighbors();
+        if (neighbors.size() == 0) {
+            break;
+        }
 
-
+        auto newKnapsack = getRandomNeighbor(problem, neighbors);
 
         newKnapsack.recalculateSummedValues();
 
-        if (newKnapsack.getSummedPrice() >= bestKnapsack->getSummedPrice()) *bestKnapsack = Knapsack(newKnapsack);
+        if (newKnapsack.getSummedPrice() >= bestKnapsack->getSummedPrice()) {
+            if (Problem::isDebug()) {
+                std::cout << "Best knapsack price: " << bestKnapsack->getSummedPrice() << " | new best price: " <<
+                          newKnapsack.getSummedPrice() << std::endl;
+            }
+
+            *bestKnapsack = Knapsack(newKnapsack);
+        }
         else break;
     }
 
     return bestKnapsack;
 }
 
-Knapsack *HillClimb::generateDeterministicSolution(Problem &problem) {
+Knapsack *HillClimb::generateDeterministicSolution(Problem problem) {
     auto bestKnapsack = problem.getKnapsack();
 
-    for (int i = 0; i < 100000; i++) {
-        auto newKnapsack = getBestNeighbor(problem);
+    for (int i = 0; i < 10000; i++) {
+        auto neighbors = problem.generateNeighbors();
+        if (neighbors.size() == 0) {
+            break;
+        }
+
+        auto newKnapsack = getBestNeighbor(neighbors);
 
         newKnapsack.recalculateSummedValues();
 
-        if (newKnapsack.getSummedPrice() >= bestKnapsack->getSummedPrice()) *bestKnapsack = Knapsack(newKnapsack);
+        if (newKnapsack.getSummedPrice() >= bestKnapsack->getSummedPrice()) {
+            if (Problem::isDebug()) {
+                std::cout << "Best knapsack price: " << bestKnapsack->getSummedPrice() << " | new best price: " <<
+                          newKnapsack.getSummedPrice() << std::endl;
+            }
+            *bestKnapsack = Knapsack(newKnapsack);
+        }
         else break;
     }
 
     return bestKnapsack;
-}
-
-Knapsack HillClimb::getRandomNeighbor(Problem &problem) {
-    auto neighbors = problem.generateNeighbors();
-
-    if (neighbors.empty()) return *problem.getKnapsack();
-
-    return neighbors[problem.getRandomizer()->generateIntegerNumberFromRange(0, neighbors.size() - 1)];
-}
-
-Knapsack HillClimb::getBestNeighbor(Problem &problem) {
-    auto neighbors = problem.generateNeighbors();
-
-    if (neighbors.empty()) return *problem.getKnapsack();
-
-    return *std::max_element(neighbors.begin(), neighbors.end(),
-                            [](auto neighbor1, auto neighbor2) {
-
-                                return neighbor1.getSummedPrice() < neighbor2.getSummedPrice();
-                            });
 }

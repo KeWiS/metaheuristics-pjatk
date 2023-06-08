@@ -13,6 +13,16 @@ public:
     // Copy constructor
     Knapsack(const Knapsack &knapsack);
 
+    bool operator==(const Knapsack &knapsack2) {
+        if (this->getConstBoxes().size() != knapsack2.getConstBoxes().size()) return false;
+
+        for (std::vector<Box>::size_type i = 0; i != this->getConstBoxes().size(); i++) {
+            if (this->getConstBoxes()[i].getWeight() != knapsack2.getConstBoxes()[i].getWeight()) return false;
+        }
+
+        return true;
+    }
+
     void swapBoxAtIndex(int index, Box box);
 
     void addBox(Box &box);
@@ -25,9 +35,15 @@ public:
 
     int getSummedWeight();
 
-    std::vector<Box> getBoxes();
+    std::vector<Box> &getBoxes();
+
+    std::vector<Box> getConstBoxes() const;
+
+    void sortBoxesInside();
 
     void printKnapsack();
+
+    void compactPrintKnapsack();
 
 private:
     int capacity;

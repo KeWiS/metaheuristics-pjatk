@@ -2,8 +2,10 @@
 #include <iostream>
 #include "problem.h"
 #include "hill_climbing/hill_climb.h"
+#include "tabu_search/tabu_search.h"
 
-Problem::Problem() {
+Problem::Problem(bool debug) {
+    this->debug = debug;
     this->randomizer = Randomizer();
     this->possibleBoxRange = generatePossibleBoxRange();
     this->knapsack = generateKnapsack();
@@ -16,11 +18,15 @@ Problem::Problem() {
     //  Deterministic solution
     std::cout << "\n\nDeterministic hill-climb solution: " << std::endl;
     HillClimb::generateDeterministicSolution(*this)->printKnapsack();
+
+    // Tabu search algorithm
+    std::cout << "\n\nTabu search solution: " << std::endl;
+    TabuSearch::performTabuSearch(*this).printKnapsack();
 }
 
 std::vector<Box> Problem::generatePossibleBoxRange() {
     std::vector<Box> boxRange = std::vector<Box>();
-    int amountOfBoxes = randomizer.generateIntegerNumberFromRange(3, 5);
+    int amountOfBoxes = randomizer.generateIntegerNumberFromRange(3, 6);
 
     for (int i = 1; i <= amountOfBoxes; i++) {
         int boxWeight = randomizer.generateIntegerNumberFromRange(5, 15);
@@ -44,7 +50,7 @@ std::vector<Box> Problem::generatePossibleBoxRange() {
 }
 
 Knapsack Problem::generateKnapsack() {
-    int knapsackCapacity = randomizer.generateIntegerNumberFromRange(25, 55);
+    int knapsackCapacity = randomizer.generateIntegerNumberFromRange(25, 75);
 
     return Knapsack(knapsackCapacity, generateRandomBoxesCollection(knapsackCapacity));
 }
@@ -100,18 +106,47 @@ std::vector<Knapsack> Problem::generateNeighbors() {
                     copiedKnapsack.recalculateSummedValues();
                 }
 
+                copiedKnapsack.sortBoxesInside();
+
                 neighbors.push_back(copiedKnapsack);
             }
         }
     }
 
+    removeDuplicateNeighbours(neighbors);
+
     return neighbors;
+}
+
+void Problem::removeDuplicateNeighbours(std::vector<Knapsack> &neighbors) {
+    std::vector<Knapsack>::iterator it = neighbors.begin();
+
+    while (it != neighbors.end()) {
+        if (checkIfDuplicateNeighborExists(neighbors, *it, it - neighbors.begin())) it = neighbors.erase(it);
+        else ++it;
+    }
+}
+
+bool Problem::checkIfDuplicateNeighborExists(std::vector<Knapsack> &neighbors, Knapsack &knapsack, int currentIndex) {
+    return std::find(neighbors.begin() + currentIndex + 1, neighbors.end(), knapsack) != neighbors.end();
+}
+
+bool Problem::isDebug() {
+    return debug;
 }
 
 Knapsack *Problem::getKnapsack() {
     return &knapsack;
 }
 
+Knapsack Problem::getKnapsackCopy() {
+    return knapsack;
+}
+
 Randomizer *Problem::getRandomizer() {
     return &randomizer;
+}
+
+void Problem::swapKnapsack(Knapsack &knapsack) {
+    this->knapsack = knapsack;
 }
