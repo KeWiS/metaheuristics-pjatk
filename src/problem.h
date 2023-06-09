@@ -11,7 +11,7 @@ public:
 
     std::vector<Box> generatePossibleBoxRange();
 
-    Knapsack generateKnapsack();
+    Knapsack generateInitialKnapsack();
 
     std::vector<Box> generateRandomBoxesCollection(int maxWeight);
 
@@ -21,17 +21,21 @@ public:
 
     bool checkIfDuplicateNeighborExists(std::vector<Knapsack> &neighbors, Knapsack &knapsack, int currentIndex);
 
+    Randomizer *getRandomizer();
+
     Knapsack *getKnapsack();
 
     Knapsack getKnapsackCopy();
 
-    Randomizer *getRandomizer();
+    int getGlobalKnapsackCapacity();
 
     void swapKnapsack(Knapsack &knapsack);
 
 private:
     Randomizer randomizer;
     Knapsack knapsack;
+
+    int globalKnapsackCapacity = 0;
 
     std::vector<Box> possibleBoxRange;
 };

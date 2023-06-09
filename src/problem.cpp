@@ -13,7 +13,7 @@ Problem::Problem() {
 //    this->knapsack = Knapsack(7, {Box(1, 1)});
     // Generating random box range and knapsack
     this->possibleBoxRange = generatePossibleBoxRange();
-    this->knapsack = generateKnapsack();
+    this->knapsack = generateInitialKnapsack();
     knapsack.printKnapsack();
 
     // Hill-climb algorithm
@@ -62,8 +62,10 @@ std::vector<Box> Problem::generatePossibleBoxRange() {
     return boxRange;
 }
 
-Knapsack Problem::generateKnapsack() {
+Knapsack Problem::generateInitialKnapsack() {
     int knapsackCapacity = randomizer.generateIntegerNumberFromRange(25, 75);
+
+    globalKnapsackCapacity = knapsackCapacity;
 
     return Knapsack(knapsackCapacity, generateRandomBoxesCollection(knapsackCapacity));
 }
@@ -144,6 +146,10 @@ bool Problem::checkIfDuplicateNeighborExists(std::vector<Knapsack> &neighbors, K
     return std::find(neighbors.begin() + currentIndex + 1, neighbors.end(), knapsack) != neighbors.end();
 }
 
+Randomizer *Problem::getRandomizer() {
+    return &randomizer;
+}
+
 Knapsack *Problem::getKnapsack() {
     return &knapsack;
 }
@@ -152,8 +158,8 @@ Knapsack Problem::getKnapsackCopy() {
     return knapsack;
 }
 
-Randomizer *Problem::getRandomizer() {
-    return &randomizer;
+int Problem::getGlobalKnapsackCapacity() {
+    return globalKnapsackCapacity;
 }
 
 void Problem::swapKnapsack(Knapsack &knapsack) {
