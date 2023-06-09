@@ -15,7 +15,7 @@ Knapsack *HillClimb::generateRandomSolution(Problem problem) {
         newKnapsack.recalculateSummedValues();
 
         if (newKnapsack.getSummedPrice() >= bestKnapsack->getSummedPrice()) {
-            if (Problem::isDebug()) {
+            if (debug) {
                 std::cout << "Best knapsack price: " << bestKnapsack->getSummedPrice() << " | new best price: " <<
                           newKnapsack.getSummedPrice() << std::endl;
             }
@@ -42,7 +42,7 @@ Knapsack *HillClimb::generateDeterministicSolution(Problem problem) {
         newKnapsack.recalculateSummedValues();
 
         if (newKnapsack.getSummedPrice() >= bestKnapsack->getSummedPrice()) {
-            if (Problem::isDebug()) {
+            if (debug) {
                 std::cout << "Best knapsack price: " << bestKnapsack->getSummedPrice() << " | new best price: " <<
                           newKnapsack.getSummedPrice() << std::endl;
             }
@@ -52,4 +52,8 @@ Knapsack *HillClimb::generateDeterministicSolution(Problem problem) {
     }
 
     return bestKnapsack;
+}
+
+void HillClimb::setDebug(bool debugged) {
+    debug = debugged;
 }

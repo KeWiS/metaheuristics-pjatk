@@ -11,3 +11,7 @@ int Randomizer::generateIntegerNumberFromRange(int beginNumber, int endNumber) {
 
     return distribution(this->generator);
 }
+
+std::mt19937 Randomizer::getGenerator() {
+    return generator;
+}

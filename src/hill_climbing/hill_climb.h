@@ -8,6 +8,11 @@ public:
     static Knapsack *generateRandomSolution(Problem problem);
 
     static Knapsack *generateDeterministicSolution(Problem problem);
+
+    static void setDebug(bool debugged);
+
+private:
+    inline static bool debug = false;
 };
 
 #endif //METAHEURISTICS_PJATK_HILL_CLIMB_H

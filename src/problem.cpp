@@ -3,10 +3,15 @@
 #include "problem.h"
 #include "hill_climbing/hill_climb.h"
 #include "tabu_search/tabu_search.h"
+#include "simulated_annealing/simulated_annealing.h"
 
-Problem::Problem(bool debug) {
-    this->debug = debug;
+Problem::Problem() {
     this->randomizer = Randomizer();
+    // Creating manually box range
+//    this->possibleBoxRange = {Box(1, 1), Box(1, 2), Box(2, 3),
+//                              Box(3, 6), Box(3, 7)};
+//    this->knapsack = Knapsack(7, {Box(1, 1)});
+    // Generating random box range and knapsack
     this->possibleBoxRange = generatePossibleBoxRange();
     this->knapsack = generateKnapsack();
     knapsack.printKnapsack();
@@ -14,14 +19,22 @@ Problem::Problem(bool debug) {
     // Hill-climb algorithm
     //  Random solution
     std::cout << "\n\nRandom hill-climb solution: " << std::endl;
+    HillClimb::setDebug(false);
     HillClimb::generateRandomSolution(*this)->printKnapsack();
     //  Deterministic solution
     std::cout << "\n\nDeterministic hill-climb solution: " << std::endl;
+    HillClimb::setDebug(false);
     HillClimb::generateDeterministicSolution(*this)->printKnapsack();
 
     // Tabu search algorithm
     std::cout << "\n\nTabu search solution: " << std::endl;
+    TabuSearch::setDebug(false);
     TabuSearch::performTabuSearch(*this).printKnapsack();
+
+    // Simulated annealing algorithm
+    std::cout << "\n\nSimulated annealing solution: " << std::endl;
+    SimulatedAnnealing::setDebug(false);
+    SimulatedAnnealing::performSimulatedAnnealing(*this, 0, 1000).printKnapsack();
 }
 
 std::vector<Box> Problem::generatePossibleBoxRange() {
@@ -129,10 +142,6 @@ void Problem::removeDuplicateNeighbours(std::vector<Knapsack> &neighbors) {
 
 bool Problem::checkIfDuplicateNeighborExists(std::vector<Knapsack> &neighbors, Knapsack &knapsack, int currentIndex) {
     return std::find(neighbors.begin() + currentIndex + 1, neighbors.end(), knapsack) != neighbors.end();
-}
-
-bool Problem::isDebug() {
-    return debug;
 }
 
 Knapsack *Problem::getKnapsack() {

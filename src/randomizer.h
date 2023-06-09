@@ -9,6 +9,8 @@ public:
 
     int generateIntegerNumberFromRange(int beginNumber, int endNumber);
 
+    std::mt19937 getGenerator();
+
 private:
     std::mt19937 generator;
 };

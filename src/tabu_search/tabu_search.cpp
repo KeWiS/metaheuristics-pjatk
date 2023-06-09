@@ -35,7 +35,7 @@ Knapsack TabuSearch::performTabuSearch(Problem problem) {
         newKnapsack.recalculateSummedValues();
 
         if (newKnapsack.getSummedPrice() >= bestKnapsack.getSummedPrice()) {
-            if (Problem::isDebug()) {
+            if (debug) {
                 std::cout << "Best knapsack price: " << bestKnapsack.getSummedPrice() << " | new best price: " <<
                           newKnapsack.getSummedPrice() << std::endl;
             }
@@ -48,4 +48,8 @@ Knapsack TabuSearch::performTabuSearch(Problem problem) {
     }
 
     return bestKnapsack;
+}
+
+void TabuSearch::setDebug(bool debugged) {
+    debug = debugged;
 }

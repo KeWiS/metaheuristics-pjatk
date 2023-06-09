@@ -7,7 +7,7 @@
 
 class Problem {
 public:
-    Problem(bool debug);
+    Problem();
 
     std::vector<Box> generatePossibleBoxRange();
 
@@ -21,8 +21,6 @@ public:
 
     bool checkIfDuplicateNeighborExists(std::vector<Knapsack> &neighbors, Knapsack &knapsack, int currentIndex);
 
-    static bool isDebug();
-
     Knapsack *getKnapsack();
 
     Knapsack getKnapsackCopy();
@@ -32,7 +30,6 @@ public:
     void swapKnapsack(Knapsack &knapsack);
 
 private:
-    inline static bool debug = false;
     Randomizer randomizer;
     Knapsack knapsack;
 
