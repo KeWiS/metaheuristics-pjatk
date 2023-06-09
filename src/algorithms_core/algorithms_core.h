@@ -2,8 +2,8 @@
 #define METAHEURISTICS_PJATK_ALGORITHMS_CORE_H
 
 #include <algorithm>
-#include "../knapsack.h"
-#include "../problem.h"
+#include "../knapsack_problem/knapsack.h"
+#include "../knapsack_problem/problem.h"
 
 class AlgorithmsCore {
 protected:

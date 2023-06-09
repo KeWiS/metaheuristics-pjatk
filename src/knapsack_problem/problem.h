@@ -2,7 +2,7 @@
 #define METAHEURISTICS_PJATK_PROBLEM_H
 
 #include <vector>
-#include "randomizer.h"
+#include "../utility/randomizer.h"
 #include "knapsack.h"
 
 class Problem {
@@ -28,6 +28,8 @@ public:
     Knapsack getKnapsackCopy();
 
     int getGlobalKnapsackCapacity();
+
+    std::vector<Box> getPossibleBoxRange();
 
     void swapKnapsack(Knapsack &knapsack);
 

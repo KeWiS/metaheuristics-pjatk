@@ -5,9 +5,9 @@
 
 class HillClimb : public AlgorithmsCore {
 public:
-    static Knapsack *generateRandomSolution(Problem problem);
+    static Knapsack *generateRandomSolution(Problem problem, int iterationCount);
 
-    static Knapsack *generateDeterministicSolution(Problem problem);
+    static Knapsack *generateDeterministicSolution(Problem problem, int iterationCount);
 
     static void setDebug(bool debugged);
 

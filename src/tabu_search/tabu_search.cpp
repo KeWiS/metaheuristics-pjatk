@@ -1,12 +1,12 @@
 #include "tabu_search.h"
 #include <iostream>
 
-Knapsack TabuSearch::performTabuSearch(Problem problem) {
+Knapsack TabuSearch::performTabuSearch(Problem problem, int iterationCount) {
     auto bestKnapsack = problem.getKnapsackCopy();
 
     tabu.push_back(bestKnapsack);
 
-    for (int i = 0; i < 100000; i++) {
+    for (int i = 0; i < iterationCount; i++) {
         auto neighbors = problem.generateNeighbors();
 
         for (std::vector<Knapsack>::size_type j = 0; j != tabu.size(); j++) {

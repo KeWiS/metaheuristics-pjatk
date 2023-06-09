@@ -1,9 +1,10 @@
 #include <algorithm>
 #include <iostream>
 #include "problem.h"
-#include "hill_climbing/hill_climb.h"
-#include "tabu_search/tabu_search.h"
-#include "simulated_annealing/simulated_annealing.h"
+#include "../hill_climbing/hill_climb.h"
+#include "../tabu_search/tabu_search.h"
+#include "../simulated_annealing/simulated_annealing.h"
+#include "../genetic/genetic.h"
 
 Problem::Problem() {
     this->randomizer = Randomizer();
@@ -11,6 +12,7 @@ Problem::Problem() {
 //    this->possibleBoxRange = {Box(1, 1), Box(1, 2), Box(2, 3),
 //                              Box(3, 6), Box(3, 7)};
 //    this->knapsack = Knapsack(7, {Box(1, 1)});
+//    globalKnapsackCapacity = 7;
     // Generating random box range and knapsack
     this->possibleBoxRange = generatePossibleBoxRange();
     this->knapsack = generateInitialKnapsack();
@@ -20,21 +22,26 @@ Problem::Problem() {
     //  Random solution
     std::cout << "\n\nRandom hill-climb solution: " << std::endl;
     HillClimb::setDebug(false);
-    HillClimb::generateRandomSolution(*this)->printKnapsack();
+    HillClimb::generateRandomSolution(*this, 10000)->printKnapsack();
     //  Deterministic solution
     std::cout << "\n\nDeterministic hill-climb solution: " << std::endl;
     HillClimb::setDebug(false);
-    HillClimb::generateDeterministicSolution(*this)->printKnapsack();
+    HillClimb::generateDeterministicSolution(*this, 10000)->printKnapsack();
 
     // Tabu search algorithm
     std::cout << "\n\nTabu search solution: " << std::endl;
     TabuSearch::setDebug(false);
-    TabuSearch::performTabuSearch(*this).printKnapsack();
+    TabuSearch::performTabuSearch(*this, 100000).printKnapsack();
 
     // Simulated annealing algorithm
     std::cout << "\n\nSimulated annealing solution: " << std::endl;
     SimulatedAnnealing::setDebug(false);
-    SimulatedAnnealing::performSimulatedAnnealing(*this, 0, 1000).printKnapsack();
+    SimulatedAnnealing::performSimulatedAnnealing(*this, 0, 5000).printKnapsack();
+
+    // Genetic algorithm
+    std::cout << "\n\nGenetic algorithm solution: " << std::endl;
+    Genetic::setDebug(false);
+    Genetic::performGeneticAlgorithm(*this, 32, 5000, 70).printKnapsack();
 }
 
 std::vector<Box> Problem::generatePossibleBoxRange() {
@@ -59,6 +66,15 @@ std::vector<Box> Problem::generatePossibleBoxRange() {
         return (box1.getWeight() < box2.getWeight());
     });
 
+    // Printing generated boxes range
+    std::cout << "Generated boxes range:" << std::endl;
+    for (std::vector<Box>::size_type i = 0; i != boxRange.size(); i++) {
+        std::cout << "\tBox " << i << " weight: " << boxRange[i].getWeight() << "kg" <<
+                  " | price: " << boxRange[i].getPrice() << "$" << std::endl;
+    }
+
+    std::cout << std::endl;
+
     return boxRange;
 }
 
@@ -73,15 +89,6 @@ Knapsack Problem::generateInitialKnapsack() {
 std::vector<Box> Problem::generateRandomBoxesCollection(int maxWeight) {
     std::vector<Box> boxesCollection = std::vector<Box>();
     int currentBoxesWeight = 0;
-
-    // Printing generated boxes range
-    std::cout << "Generated boxes range:" << std::endl;
-    for (std::vector<Box>::size_type i = 0; i != possibleBoxRange.size(); i++) {
-        std::cout << "\tBox " << i << " weight: " << possibleBoxRange[i].getWeight() << "kg" <<
-                  " | price: " << possibleBoxRange[i].getPrice() << "$" << std::endl;
-    }
-
-    std::cout << std::endl;
 
     while (maxWeight >= currentBoxesWeight + possibleBoxRange[0].getWeight()) {
         int boxIndex = randomizer.generateIntegerNumberFromRange(0, possibleBoxRange.size() - 1);
@@ -116,7 +123,7 @@ std::vector<Knapsack> Problem::generateNeighbors() {
                 copiedKnapsack.swapBoxAtIndex(i, boxOption);
                 copiedKnapsack.recalculateSummedValues();
 
-                while (copiedKnapsack.getSummedWeight() + boxOption.getWeight() < copiedKnapsack.getCapacity()) {
+                while (copiedKnapsack.getSummedWeight() + boxOption.getWeight() <= copiedKnapsack.getCapacity()) {
                     copiedKnapsack.addBox(boxOption);
                     copiedKnapsack.recalculateSummedValues();
                 }
@@ -160,6 +167,10 @@ Knapsack Problem::getKnapsackCopy() {
 
 int Problem::getGlobalKnapsackCapacity() {
     return globalKnapsackCapacity;
+}
+
+std::vector<Box> Problem::getPossibleBoxRange() {
+    return possibleBoxRange;
 }
 
 void Problem::swapKnapsack(Knapsack &knapsack) {

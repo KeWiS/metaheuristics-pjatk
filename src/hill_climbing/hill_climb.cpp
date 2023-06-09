@@ -1,10 +1,10 @@
 #include "hill_climb.h"
 #include <iostream>
 
-Knapsack *HillClimb::generateRandomSolution(Problem problem) {
+Knapsack *HillClimb::generateRandomSolution(Problem problem, int iterationCount) {
     auto bestKnapsack = problem.getKnapsack();
 
-    for (int i = 0; i < 10000; i++) {
+    for (int i = 0; i < iterationCount; i++) {
         auto neighbors = problem.generateNeighbors();
         if (neighbors.size() == 0) {
             break;
@@ -28,10 +28,10 @@ Knapsack *HillClimb::generateRandomSolution(Problem problem) {
     return bestKnapsack;
 }
 
-Knapsack *HillClimb::generateDeterministicSolution(Problem problem) {
+Knapsack *HillClimb::generateDeterministicSolution(Problem problem, int iterationCount) {
     auto bestKnapsack = problem.getKnapsack();
 
-    for (int i = 0; i < 10000; i++) {
+    for (int i = 0; i < iterationCount; i++) {
         auto neighbors = problem.generateNeighbors();
         if (neighbors.size() == 0) {
             break;

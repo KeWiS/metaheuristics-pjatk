@@ -1,4 +1,4 @@
-#include "problem.h"
+#include "knapsack_problem/problem.h"
 
 int main() {
     Problem problem;

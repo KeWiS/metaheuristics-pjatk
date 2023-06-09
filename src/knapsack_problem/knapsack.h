@@ -49,6 +49,7 @@ private:
     int capacity;
     int summedPrice = 0;
     int summedWeight = 0;
+
     std::vector<Box> boxes;
 };
 

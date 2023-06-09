@@ -5,8 +5,8 @@ Knapsack SimulatedAnnealing::performSimulatedAnnealing(Problem problem, int temp
     auto randomGenerator = problem.getRandomizer()->getGenerator();
     auto bestKnapsack = problem.getKnapsackCopy();
     auto currentKnapsack = problem.getKnapsackCopy();
-
-    for (int i = 1; i < iterationCount; i++) {
+    // Starting loop from 1 to avoid division by 0 in temperature function
+    for (int i = 1; i <= iterationCount; i++) {
         // Problem will contain current solution
         auto neighbors = problem.generateNeighbors();
         if (neighbors.size() == 0) {
