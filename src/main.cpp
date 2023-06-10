@@ -7,7 +7,8 @@ int main(int argc, char *argv[]) {
             "hill-climbing",
             "tabu-searching",
             "simulated-annealing",
-            "genetic"
+            "genetic",
+            "all"
     };
 
     // Default values

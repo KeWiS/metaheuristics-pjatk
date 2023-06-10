@@ -17,7 +17,7 @@ Problem::Problem(std::string algorithmType, int iterationCount, int knapsackCapa
     knapsack.printKnapsack();
 
     // Hill-climb algorithm
-    if (algorithmType == "hill-climbing") {
+    if (algorithmType == "hill-climbing" || algorithmType == "all") {
         //  Random solution
         std::cout << "\n\nRandom hill-climb solution: " << std::endl;
         HillClimb::setDebug(debug);
@@ -29,21 +29,21 @@ Problem::Problem(std::string algorithmType, int iterationCount, int knapsackCapa
     }
 
     // Tabu search algorithm
-    if (algorithmType == "tabu-searching") {
+    if (algorithmType == "tabu-searching" || algorithmType == "all") {
         std::cout << "\n\nTabu search solution: " << std::endl;
         TabuSearch::setDebug(debug);
         TabuSearch::performTabuSearch(*this, iterationCount, maxTabuSize).printKnapsack();
     }
 
     // Simulated annealing algorithm
-    if (algorithmType == "simulated-annealing") {
+    if (algorithmType == "simulated-annealing" || algorithmType == "all") {
         std::cout << "\n\nSimulated annealing solution: " << std::endl;
         SimulatedAnnealing::setDebug(debug);
         SimulatedAnnealing::performSimulatedAnnealing(*this, temperatureFunctionVariant, iterationCount).printKnapsack();
     }
 
     // Genetic algorithm
-    if (algorithmType == "genetic") {
+    if (algorithmType == "genetic" || algorithmType == "all") {
         std::cout << "\n\nGenetic algorithm solution: " << std::endl;
         Genetic::setDebug(debug);
         Genetic::performGeneticAlgorithm(*this, populationCount, iterationCount, maxVarietyPercentage, crossingMethod, mutationMethod).printKnapsack();

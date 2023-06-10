@@ -5,6 +5,7 @@ Default required parameters, brief explanation and example values:
   2. tabu-searching
   3. simulated-annealing
   4. genetic
+  5. all - this one is special, it calls all algorithms with default parameters but for same knapsack, when calling this leave additional parameters empty, they will run on default
 - iterationCount - Amount of program iterations; 1000
 - knapsackCapacity - Capacity of generated knapsack (shared with all of them); 40
 - boxAmount - Amount of boxes for possible box range; 6
