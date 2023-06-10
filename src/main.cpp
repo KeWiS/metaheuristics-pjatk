@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     auto maxBoxWeight = 15;
     auto debug = true;
     // For tabu \/
-    auto maxTabuSize = 100;
+    auto maxTabuSize = -1;
     // For simulated annealing \/
     auto temperatureFunctionVariant = 0;
     // For genetic \/

@@ -17,7 +17,7 @@ Default required parameters, brief explanation and example values:
 
 Below you can find parameters for specific algorithms (insert them in order after required parameters)<br><br>
 Parameters for tabu-search algorithm:
-- maxTabuSize - Max. tabu size; 100
+- maxTabuSize - Max. tabu size (if -1 is given it will be unlimited); 100
 
 Parameters for simulated annealing algorithm:
 - temperatureFunctionVariant - Variant of temperature function (0, 1, 2 values only); 0
