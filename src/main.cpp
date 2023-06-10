@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
         debug = std::stoi(debugString);
         if (debug != 0 && debug != 1) {
             std::cout << "Invalid debug argument, debug = true chosen" << std::endl;
-            auto debug = true;
+            debug = true;
         }
         // For tabu
         if (algorithmType == "tabu-searching") {
