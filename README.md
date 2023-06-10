@@ -1,4 +1,8 @@
-# metaheuristics-pjatk
+# metaheuristics-pjatk - Knapsack problem
+The knapsack problem is the following problem in combinatorial optimization:
+
+Given a set of items, each with a weight and a value, determine which items to include in the collection so that the total weight is less than or equal to a given limit and the total value is as large as possible. (source: wikipedia)
+
 Default required parameters, brief explanation and example values:
 - algorithmType - One of available algorithms;
   1. hill-climbing
