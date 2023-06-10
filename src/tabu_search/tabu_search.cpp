@@ -44,7 +44,7 @@ Knapsack TabuSearch::performTabuSearch(Problem problem, int iterationCount, int 
         }
 
         // Deleting tabu from the front
-        if (tabu.size() >= maxTabuSize) {
+        if (maxTabuSize != -1 && tabu.size() >= maxTabuSize) {
             tabu.erase(tabu.begin());
         }
 
