@@ -22,7 +22,6 @@ Knapsack *HillClimb::generateRandomSolution(Problem problem, int iterationCount)
 
             *bestKnapsack = Knapsack(newKnapsack);
         }
-        else break;
     }
 
     return bestKnapsack;

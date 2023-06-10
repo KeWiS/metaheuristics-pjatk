@@ -109,8 +109,9 @@ std::pair<Knapsack, Knapsack> Genetic::crossKnapsacks(Problem &problem, Knapsack
     // Selecting random crossing method
     if (crossingMethod == 0) {
         // One crossing point in the middle
-        auto parent1BoxesCount = parent1.getBoxes().size();
-        auto crossingPoint = parent1BoxesCount / 2;
+        auto parentBoxesCount = parent1.getBoxes().size();
+        if (parentBoxesCount > parent2.getBoxes().size()) parentBoxesCount = parent2.getBoxes().size();
+        auto crossingPoint = parentBoxesCount / 2;
         // Creating a pair of boxes sets for crossing purposes
         std::pair<std::vector<Box>, std::vector<Box>> parent1Boxes = {
                 std::vector<Box>(parent1.getBoxes().begin(), parent1.getBoxes().begin() + crossingPoint),

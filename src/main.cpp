@@ -12,22 +12,22 @@ int main(int argc, char *argv[]) {
     };
 
     // Default values
-    auto algorithmType = availableAlgorithms[0];
+    auto algorithmType = availableAlgorithms[4];
     auto iterationCount = 1000;
-    auto knapsackCapacity = 40;
-    auto boxAmount = 6;
+    auto knapsackCapacity = 500;
+    auto boxAmount = 25;
     auto minBoxPrice = 1;
-    auto maxBoxPrice = 10;
-    auto minBoxWeight = 5;
-    auto maxBoxWeight = 15;
-    auto debug = true;
+    auto maxBoxPrice = 100;
+    auto minBoxWeight = 1;
+    auto maxBoxWeight = 100;
+    auto debug = false;
     // For tabu \/
     auto maxTabuSize = -1;
     // For simulated annealing \/
     auto temperatureFunctionVariant = 0;
     // For genetic \/
-    auto populationCount = 32;
-    auto maxVarietyPercentage = 70;
+    auto populationCount = 500;
+    auto maxVarietyPercentage = 80;
     auto crossingMethod = 0;
     auto mutationMethod = 0;
     // Reading arguments
