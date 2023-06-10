@@ -28,3 +28,9 @@ Parameters for simulated annealing algorithm:
 Parameters for genetic algorithm:
 - populationCount - Population count of genetic algorithm; 32
 - maxVarietyPercentage - Max. percentage value for terminal condition of main loop; 70
+- crossingMethod - Crossing method (0, 1), when other value is inserted it is defaulted to 0; 0
+  - 0 - Crossing with single cut
+  - 1 - Crossing with two cuts (PMX), (0, 1), when other value is inserted it is defaulted to 0; 0
+- mutationMethod - Mutation method; 0
+  - 0 - This mutation changes the heaviest box to the different one
+  - 1 - This mutation changes one or few the lightest box to one heavier

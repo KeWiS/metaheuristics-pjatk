@@ -6,7 +6,7 @@
 class Genetic : public AlgorithmsCore {
 public:
     static Knapsack performGeneticAlgorithm(Problem problem, int populationCount, int iterationCount,
-                                            double maxVarietyPercentage);
+                                            double maxVarietyPercentage, int crossingMethod, int mutationMethod);
 
     static void setDebug(bool debugged);
 
@@ -29,13 +29,14 @@ private:
 
     static std::vector<Knapsack> performParentsSelection(Problem &problem);
 
-    static std::vector<Knapsack> performCrossover(Problem &problem, std::vector<Knapsack> parents);
+    static std::vector<Knapsack> performCrossover(Problem &problem, std::vector<Knapsack> parents, int crossingMethod);
 
-    static std::pair<Knapsack, Knapsack> crossKnapsacks(Problem &problem, Knapsack parent1, Knapsack parent2);
+    static std::pair<Knapsack, Knapsack> crossKnapsacks(Problem &problem, Knapsack parent1, Knapsack parent2,
+                                                        int crossingMethod);
 
     static void fixKnapsackBoxCollectionsAfterCrossover(Problem &problem, Knapsack &offspringKnapsack);
 
-    static std::vector<Knapsack> performRandomMutations(Problem &problem, std::vector<Knapsack> offspring);
+    static std::vector<Knapsack> performRandomMutations(Problem &problem, std::vector<Knapsack> offspring, int mutationMethod);
 };
 
 #endif //METAHEURISTICS_PJATK_GENETIC_H

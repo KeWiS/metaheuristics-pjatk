@@ -3,7 +3,7 @@
 #include "genetic.h"
 
 Knapsack Genetic::performGeneticAlgorithm(Problem problem, int populationCount, int iterationCount,
-                                          double maxVarietyPercentage) {
+                                          double maxVarietyPercentage, int crossingMethod, int mutationMethod) {
     maxVarietyTerminationPercentage = maxVarietyPercentage;
 
     generateInitialPopulation(problem, populationCount);
@@ -11,9 +11,9 @@ Knapsack Genetic::performGeneticAlgorithm(Problem problem, int populationCount, 
     while (terminalCondition(iterationCount)) {
         performFitnessRecalculations();
         auto parents = performParentsSelection(problem);
-        auto offspring = performCrossover(problem, parents);
+        auto offspring = performCrossover(problem, parents, crossingMethod);
         // Mutated offspring below
-        offspring = performRandomMutations(problem, offspring);
+        offspring = performRandomMutations(problem, offspring, mutationMethod);
         // Replacing current population with created offspring
         population = offspring;
     }
@@ -88,12 +88,12 @@ std::vector<Knapsack> Genetic::performParentsSelection(Problem &problem) {
     return parents;
 }
 
-std::vector<Knapsack> Genetic::performCrossover(Problem &problem, std::vector<Knapsack> parents) {
+std::vector<Knapsack> Genetic::performCrossover(Problem &problem, std::vector<Knapsack> parents, int crossingMethod) {
     std::vector<Knapsack> offspring = std::vector<Knapsack>{};
 
     for (std::vector<Knapsack>::size_type j = 0; j != population.size(); j += 2) {
         auto crossedKnapsacks = crossKnapsacks(problem, population[j],
-                                               population[j + 1]);
+                                               population[j + 1], crossingMethod);
 
         offspring.push_back(crossedKnapsacks.first);
         offspring.push_back(crossedKnapsacks.second);
@@ -102,11 +102,12 @@ std::vector<Knapsack> Genetic::performCrossover(Problem &problem, std::vector<Kn
     return offspring;
 }
 
-std::pair<Knapsack, Knapsack> Genetic::crossKnapsacks(Problem &problem, Knapsack parent1, Knapsack parent2) {
+std::pair<Knapsack, Knapsack> Genetic::crossKnapsacks(Problem &problem, Knapsack parent1, Knapsack parent2,
+                                                      int crossingMethod) {
     auto offspringPair = std::make_pair(parent1, parent2);
 
     // Selecting random crossing method
-    if (problem.getRandomizer()->generateIntegerNumberFromRange(0, 1) == 1) {
+    if (crossingMethod == 0) {
         // One crossing point in the middle
         auto parent1BoxesCount = parent1.getBoxes().size();
         auto crossingPoint = parent1BoxesCount / 2;
@@ -199,7 +200,8 @@ void Genetic::fixKnapsackBoxCollectionsAfterCrossover(Problem &problem, Knapsack
     }
 }
 
-std::vector<Knapsack> Genetic::performRandomMutations(Problem &problem, std::vector<Knapsack> offspring) {
+std::vector<Knapsack> Genetic::performRandomMutations(Problem &problem, std::vector<Knapsack> offspring,
+                                                      int mutationMethod) {
     for (auto &knapsack : offspring) {
         // Checking if mutation should occur, there is 1% chance for mutation
         if (problem.getRandomizer()->generateIntegerNumberFromRange(1, 100) == 100) {
@@ -210,7 +212,7 @@ std::vector<Knapsack> Genetic::performRandomMutations(Problem &problem, std::vec
             // Making sure boxes are sorted inside knapsack
             knapsack.sortBoxesInside();
             // Select random mutation method
-            if (problem.getRandomizer()->generateIntegerNumberFromRange(0, 1) == 1) {
+            if (mutationMethod == 0) {
                 // Changing the heaviest box to the different one
                 auto heaviestBoxIndex = knapsack.getBoxes().size() - 1;
 

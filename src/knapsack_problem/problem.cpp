@@ -8,7 +8,8 @@
 
 Problem::Problem(std::string algorithmType, int iterationCount, int knapsackCapacity, int boxAmount, int minBoxPrice,
                  int maxBoxPrice, int minBoxWeight, int maxBoxWeight, bool debug, int maxTabuSize,
-                 int temperatureFunctionVariant, int populationCount, int maxVarietyPercentage) {
+                 int temperatureFunctionVariant, int populationCount, int maxVarietyPercentage, int crossingMethod,
+                 int mutationMethod) {
     this->randomizer = Randomizer();
     // Generating random box range and knapsack
     this->possibleBoxRange = generatePossibleBoxRange(boxAmount, minBoxPrice, maxBoxPrice, minBoxWeight, maxBoxWeight);
@@ -45,7 +46,7 @@ Problem::Problem(std::string algorithmType, int iterationCount, int knapsackCapa
     if (algorithmType == "genetic") {
         std::cout << "\n\nGenetic algorithm solution: " << std::endl;
         Genetic::setDebug(debug);
-        Genetic::performGeneticAlgorithm(*this, populationCount, iterationCount, maxVarietyPercentage).printKnapsack();
+        Genetic::performGeneticAlgorithm(*this, populationCount, iterationCount, maxVarietyPercentage, crossingMethod, mutationMethod).printKnapsack();
     }
 }
 

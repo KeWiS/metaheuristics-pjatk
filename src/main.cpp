@@ -27,6 +27,8 @@ int main(int argc, char *argv[]) {
     // For genetic \/
     auto populationCount = 32;
     auto maxVarietyPercentage = 70;
+    auto crossingMethod = 0;
+    auto mutationMethod = 0;
     // Reading arguments
     if (argc >= 2) {
         // Algorithm type
@@ -60,6 +62,10 @@ int main(int argc, char *argv[]) {
         // Debug
         std::string debugString = argv[9];
         debug = std::stoi(debugString);
+        if (debug != 0 && debug != 1) {
+            std::cout << "Invalid debug argument, debug = true chosen" << std::endl;
+            auto debug = true;
+        }
         // For tabu
         if (algorithmType == "tabu-searching") {
             std::string maxTabuSizeString = argv[10];
@@ -76,11 +82,24 @@ int main(int argc, char *argv[]) {
             populationCount = std::stoi(populationCountString);
             std::string maxVarietyPercentageString = argv[11];
             maxVarietyPercentage = std::stoi(maxVarietyPercentageString);
+            std::string crossingMethodString = argv[12];
+            crossingMethod = std::stoi(crossingMethodString);
+            if (crossingMethod != 0 && crossingMethod != 1) {
+                std::cout << "Invalid crossingMethod argument, chosen" << std::endl;
+                crossingMethod = 0;
+            }
+            std::string mutationMethodString = argv[13];
+            mutationMethod = std::stoi(mutationMethodString);
+            if (mutationMethod != 0 && mutationMethod != 1) {
+                std::cout << "Invalid mutationMethod argument, chosen" << std::endl;
+                mutationMethod = 0;
+            }
         }
     }
 
     Problem problem(algorithmType, iterationCount, knapsackCapacity, boxAmount, minBoxPrice, maxBoxPrice, minBoxWeight,
-                    maxBoxWeight, debug, maxTabuSize, temperatureFunctionVariant, populationCount, maxVarietyPercentage);
+                    maxBoxWeight, debug, maxTabuSize, temperatureFunctionVariant, populationCount, maxVarietyPercentage,
+                    crossingMethod, mutationMethod);
 
     return 0;
 }

@@ -9,7 +9,8 @@ class Problem {
 public:
     Problem(std::string algorithmType, int iterationCount, int knapsackCapacity, int boxAmount, int minBoxPrice,
             int maxBoxPrice, int minBoxWeight, int maxBoxWeight, bool debug, int maxTabuSize,
-            int temperatureFunctionVariant, int populationCount, int maxVarietyPercentage);
+            int temperatureFunctionVariant, int populationCount, int maxVarietyPercentage, int crossingMethod,
+            int mutationMethod);
 
     std::vector<Box> generatePossibleBoxRange(int boxAmount, int minBoxPrice, int maxBoxPrice, int minBoxWeight,
                                               int maxBoxWeight);
