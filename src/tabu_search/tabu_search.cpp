@@ -1,7 +1,7 @@
 #include "tabu_search.h"
 #include <iostream>
 
-Knapsack TabuSearch::performTabuSearch(Problem problem, int iterationCount) {
+Knapsack TabuSearch::performTabuSearch(Problem problem, int iterationCount, int maxTabuSize) {
     auto bestKnapsack = problem.getKnapsackCopy();
 
     tabu.push_back(bestKnapsack);
@@ -41,6 +41,11 @@ Knapsack TabuSearch::performTabuSearch(Problem problem, int iterationCount) {
             }
 
             bestKnapsack = Knapsack(newKnapsack);
+        }
+
+        // Deleting tabu from the front
+        if (tabu.size() >= maxTabuSize) {
+            tabu.erase(tabu.begin());
         }
 
         tabu.push_back(newKnapsack);

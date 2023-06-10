@@ -6,57 +6,61 @@
 #include "../simulated_annealing/simulated_annealing.h"
 #include "../genetic/genetic.h"
 
-Problem::Problem() {
+Problem::Problem(std::string algorithmType, int iterationCount, int knapsackCapacity, int boxAmount, int minBoxPrice,
+                 int maxBoxPrice, int minBoxWeight, int maxBoxWeight, bool debug, int maxTabuSize,
+                 int temperatureFunctionVariant, int populationCount, int maxVarietyPercentage) {
     this->randomizer = Randomizer();
-    // Creating manually box range
-//    this->possibleBoxRange = {Box(1, 1), Box(1, 2), Box(2, 3),
-//                              Box(3, 6), Box(3, 7)};
-//    this->knapsack = Knapsack(7, {Box(1, 1)});
-//    globalKnapsackCapacity = 7;
     // Generating random box range and knapsack
-    this->possibleBoxRange = generatePossibleBoxRange();
-    this->knapsack = generateInitialKnapsack();
+    this->possibleBoxRange = generatePossibleBoxRange(boxAmount, minBoxPrice, maxBoxPrice, minBoxWeight, maxBoxWeight);
+    this->knapsack = generateInitialKnapsack(knapsackCapacity);
     knapsack.printKnapsack();
 
     // Hill-climb algorithm
-    //  Random solution
-    std::cout << "\n\nRandom hill-climb solution: " << std::endl;
-    HillClimb::setDebug(false);
-    HillClimb::generateRandomSolution(*this, 10000)->printKnapsack();
-    //  Deterministic solution
-    std::cout << "\n\nDeterministic hill-climb solution: " << std::endl;
-    HillClimb::setDebug(false);
-    HillClimb::generateDeterministicSolution(*this, 10000)->printKnapsack();
+    if (algorithmType == "hill-climbing") {
+        //  Random solution
+        std::cout << "\n\nRandom hill-climb solution: " << std::endl;
+        HillClimb::setDebug(debug);
+        HillClimb::generateRandomSolution(*this, iterationCount)->printKnapsack();
+        //  Deterministic solution
+        std::cout << "\n\nDeterministic hill-climb solution: " << std::endl;
+        HillClimb::setDebug(debug);
+        HillClimb::generateDeterministicSolution(*this, iterationCount)->printKnapsack();
+    }
 
     // Tabu search algorithm
-    std::cout << "\n\nTabu search solution: " << std::endl;
-    TabuSearch::setDebug(false);
-    TabuSearch::performTabuSearch(*this, 100000).printKnapsack();
+    if (algorithmType == "tabu-searching") {
+        std::cout << "\n\nTabu search solution: " << std::endl;
+        TabuSearch::setDebug(debug);
+        TabuSearch::performTabuSearch(*this, iterationCount, maxTabuSize).printKnapsack();
+    }
 
     // Simulated annealing algorithm
-    std::cout << "\n\nSimulated annealing solution: " << std::endl;
-    SimulatedAnnealing::setDebug(false);
-    SimulatedAnnealing::performSimulatedAnnealing(*this, 0, 5000).printKnapsack();
+    if (algorithmType == "simulated-annealing") {
+        std::cout << "\n\nSimulated annealing solution: " << std::endl;
+        SimulatedAnnealing::setDebug(debug);
+        SimulatedAnnealing::performSimulatedAnnealing(*this, temperatureFunctionVariant, iterationCount).printKnapsack();
+    }
 
     // Genetic algorithm
-    std::cout << "\n\nGenetic algorithm solution: " << std::endl;
-    Genetic::setDebug(false);
-    Genetic::performGeneticAlgorithm(*this, 32, 5000, 70).printKnapsack();
+    if (algorithmType == "genetic") {
+        std::cout << "\n\nGenetic algorithm solution: " << std::endl;
+        Genetic::setDebug(debug);
+        Genetic::performGeneticAlgorithm(*this, populationCount, iterationCount, maxVarietyPercentage).printKnapsack();
+    }
 }
 
-std::vector<Box> Problem::generatePossibleBoxRange() {
+std::vector<Box> Problem::generatePossibleBoxRange(int boxAmount, int minBoxPrice, int maxBoxPrice, int minBoxWeight,
+                                                   int maxBoxWeight) {
     std::vector<Box> boxRange = std::vector<Box>();
-    int amountOfBoxes = randomizer.generateIntegerNumberFromRange(3, 6);
-
-    for (int i = 1; i <= amountOfBoxes; i++) {
-        int boxWeight = randomizer.generateIntegerNumberFromRange(5, 15);
+    for (int i = 1; i <= boxAmount; i++) {
+        int boxWeight = randomizer.generateIntegerNumberFromRange(minBoxWeight, maxBoxWeight);
         // Preventing from identical size of the box
         while (std::find_if(boxRange.begin(), boxRange.end(), [boxWeight](Box &box) {
             return box.getWeight() == boxWeight;
         }) != boxRange.end()) {
-            boxWeight = randomizer.generateIntegerNumberFromRange(5, 15);
+            boxWeight = randomizer.generateIntegerNumberFromRange(minBoxWeight, maxBoxWeight);
         }
-        int boxPrice = randomizer.generateIntegerNumberFromRange(1, 10);
+        int boxPrice = randomizer.generateIntegerNumberFromRange(minBoxPrice, maxBoxPrice);
 
         boxRange.push_back(Box(boxWeight, boxPrice));
     }
@@ -78,9 +82,7 @@ std::vector<Box> Problem::generatePossibleBoxRange() {
     return boxRange;
 }
 
-Knapsack Problem::generateInitialKnapsack() {
-    int knapsackCapacity = randomizer.generateIntegerNumberFromRange(25, 75);
-
+Knapsack Problem::generateInitialKnapsack(int knapsackCapacity) {
     globalKnapsackCapacity = knapsackCapacity;
 
     return Knapsack(knapsackCapacity, generateRandomBoxesCollection(knapsackCapacity));

@@ -8,7 +8,7 @@ class TabuSearch : public AlgorithmsCore {
 public:
     inline static std::vector<Knapsack> tabu = std::vector<Knapsack>{};
 
-    static Knapsack performTabuSearch(Problem problem, int iterationCount);
+    static Knapsack performTabuSearch(Problem problem, int iterationCount, int maxTabuSize);
 
     static void setDebug(bool debugged);
 

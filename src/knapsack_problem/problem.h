@@ -7,11 +7,14 @@
 
 class Problem {
 public:
-    Problem();
+    Problem(std::string algorithmType, int iterationCount, int knapsackCapacity, int boxAmount, int minBoxPrice,
+            int maxBoxPrice, int minBoxWeight, int maxBoxWeight, bool debug, int maxTabuSize,
+            int temperatureFunctionVariant, int populationCount, int maxVarietyPercentage);
 
-    std::vector<Box> generatePossibleBoxRange();
+    std::vector<Box> generatePossibleBoxRange(int boxAmount, int minBoxPrice, int maxBoxPrice, int minBoxWeight,
+                                              int maxBoxWeight);
 
-    Knapsack generateInitialKnapsack();
+    Knapsack generateInitialKnapsack(int knapsackCapacity);
 
     std::vector<Box> generateRandomBoxesCollection(int maxWeight);
 

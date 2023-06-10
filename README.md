@@ -1,1 +1,30 @@
 # metaheuristics-pjatk
+Default required parameters, brief explanation and example values:
+- algorithmType - One of available algorithms;
+  1. hill-climbing
+  2. tabu-searching
+  3. simulated-annealing
+  4. genetic
+- iterationCount - Amount of program iterations; 1000
+- knapsackCapacity - Capacity of generated knapsack (shared with all of them); 40
+- boxAmount - Amount of boxes for possible box range; 6
+- minBoxPrice - Min. price of the box generated for possible box range; 1
+- maxBoxPrice - Max. price of the box generated for possible box range; 10
+- minBoxWeight - Min. weight of the box generated for possible box range; 1
+- maxBoxWeight - Max. weight of the box generated for possible box range; 10
+- debug - Determine if program should show debug information (0 - no, everything else - yes); 0
+
+Below you can find parameters for specific algorithms (insert them in order after required parameters)<br><br>
+Parameters for tabu-search algorithm:
+- maxTabuSize - Max. tabu size; 100
+
+Parameters for simulated annealing algorithm:
+- temperatureFunctionVariant - Variant of temperature function (0, 1, 2 values only); 0
+  - 0 | 1000.0 / k
+  - 1 | 1000.0 / log10(k)
+  - 2 | 0.6^k
+
+
+Parameters for genetic algorithm:
+- populationCount - Population count of genetic algorithm; 32
+- maxVarietyPercentage - Max. percentage value for terminal condition of main loop; 70
